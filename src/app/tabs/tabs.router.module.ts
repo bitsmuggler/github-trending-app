@@ -18,6 +18,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'stream',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../stream/stream.module').then(m => m.StreamPageModule)
+          }
+        ]
+      },
+      {
         path: 'tab2',
         children: [
           {
@@ -39,14 +49,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/stream',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/stream',
     pathMatch: 'full'
   }
 ];

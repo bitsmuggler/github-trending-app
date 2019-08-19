@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Trending</ion-title>
+    <ion-buttons class="chips" slot="secondary"> 
+      <ion-chip>{{filter.since | titlecase}}</ion-chip> <br/>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-chip *ngIf="filter.language">{{filter.language}}</ion-chip>
+      <ion-button (click)="showAdvancedPicker()">
+        <ion-icon slot="icon-only" name="funnel"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="getRepos($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let repo of trendingRepos">
+    <ion-card-header>
+  
+      <ion-img [src]="repo.avatar"></ion-img>
+
+      <ion-card-subtitle>{{repo.author}}</ion-card-subtitle>
+      <ion-card-title>{{repo.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{repo.description}}
+    </ion-card-content>
+    <ion-toolbar>
+      <ion-chip *ngIf="repo.languageColor" [ngStyle]="{'background-color': repo.languageColor}">
+        <ion-label>{{repo.language}}</ion-label>
+      </ion-chip>
+      <ion-chip>
+        <ion-label>{{repo.stars}}</ion-label>
+        <ion-icon name="star"></ion-icon>
+      </ion-chip>
+      <ion-chip>
+        <ion-label>{{repo.forks}}</ion-label>
+        <ion-icon name="shuffle"></ion-icon>
+      </ion-chip>
+      <ion-buttons slot="primary">
+        <!-- <ion-button>
+          <ion-icon slot="icon-only" name="heart-empty"></ion-icon>
+        </ion-button> -->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card>
+</ion-content>
